@@ -48,6 +48,14 @@ jobs:
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
         # Removed libwebkit2gtk-4.0-dev
 
+      - name: Build daemon
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd src-daemon
+          cargo build --release
+          $TRIPLE=$(rustc --print target-triple)
+          Rename-Item -Path "target\release\src-daemon" -NewName "test-daemon-$TRIPLE"
+
       - name: install frontend dependencies
         run: npm install # change this to npm, pnpm or bun depending on which one you use.
 
