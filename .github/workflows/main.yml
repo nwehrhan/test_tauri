@@ -3,7 +3,7 @@ name: 'publish'
 on:
   push:
     branches:
-      - release
+      - main
 
 # This workflow will trigger on each push to the `release` branch to create or update a GitHub release, build your app, and upload the artifacts to the release.
 
@@ -49,7 +49,7 @@ jobs:
         # Removed libwebkit2gtk-4.0-dev
 
       - name: Build daemon
-        if: matrix.os == 'windows-latest'
+        # if: matrix.os == 'windows-latest'
         run: |
           cd src-daemon
           cargo build --release
