@@ -54,7 +54,7 @@ jobs:
           Set-Location src-daemon
           Write-Host "Current directory: $(Get-Location)"
           cargo build --release
-          $HOST=$(echo $GITHUB_WORKFLOW_HOST)
+          # $HOST=$(echo $GITHUB_WORKFLOW_HOST)
           Rename-Item -Path "target\release\src-daemon" -NewName "test-daemon-$HOST"
 
       - name: install frontend dependencies
