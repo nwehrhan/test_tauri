@@ -56,7 +56,7 @@ jobs:
           cargo build --release
           # $HOST=$(echo $GITHUB_WORKFLOW_HOST)
           dir target\release
-          Rename-Item -Path "target\release\src-daemon" -NewName "test-daemon-$HOST"
+          Rename-Item -Path "target\release\src-daemon.exe" -NewName "test-daemon-$HOST.exe"
 
       - name: install frontend dependencies
         run: npm install # change this to npm, pnpm or bun depending on which one you use.
