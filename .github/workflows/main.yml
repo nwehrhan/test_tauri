@@ -54,7 +54,7 @@ jobs:
           Set-Location src-daemon
           Write-Host "Current directory: $(Get-Location)"
           cargo build --release
-          $TRIPLE=$(Split-Path -Path $TRIPLE -Leaf)
+          $TRIPLE=$(rustc --print sysroot | Split-Path -Path {0} -Leaf).replace("\", "")
           Rename-Item -Path "target\release\src-daemon.exe" -NewName "test-daemon-$TRIPLE.exe"
           dir target\release
 
