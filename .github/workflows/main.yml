@@ -59,10 +59,12 @@ jobs:
       #     dir target\release
 
       - name: Target
+        shell: cmd
         run: |
           for /F "tokens=2 delims=: " %A in ('rustc -vV ^| findstr /C:"host"') do @echo TARGET_TRIPLE=%A >> $env:GITHUB_ENV
 
       - name: Test
+        shell: cmd
         run: |
           echo The Rust target triple is: $env:TARGET_TRIPLE
 
