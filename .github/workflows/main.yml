@@ -48,15 +48,22 @@ jobs:
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
         # Removed libwebkit2gtk-4.0-dev
 
-      - name: Build daemon
-        # if: matrix.os == 'windows-latest'
+      # - name: Build daemon
+      #   # if: matrix.os == 'windows-latest'
+      #   run: |
+      #     Set-Location src-daemon
+      #     Write-Host "Current directory: $(Get-Location)"
+      #     cargo build --release
+      #     $TRIPLE=$(Split-Path -Path $TRIPLE -Leaf)
+      #     Rename-Item -Path "target\release\src-daemon.exe" -NewName "test-daemon-$TRIPLE.exe"
+      #     dir target\release
+
+      - name: Get Rust Target Triple
         run: |
-          Set-Location src-daemon
-          Write-Host "Current directory: $(Get-Location)"
-          cargo build --release
-          $TRIPLE=$(rustc --print sysroot | Split-Path -Path {0} -Leaf).replace("\", "")
-          Rename-Item -Path "target\release\src-daemon.exe" -NewName "test-daemon-$TRIPLE.exe"
-          dir target\release
+          for /F "tokens=2 delims=: " %A in ('rustc -vV ^| findstr /C:"host"') do @echo TARGET_TRIPLE=%A >> $env:GITHUB_ENV
+
+      - name: Print Rust Target Triple
+        run: echo The Rust target triple is: $env:TARGET_TRIPLE
 
       # - name: install frontend dependencies
       #   run: npm install # change this to npm, pnpm or bun depending on which one you use.
