@@ -58,13 +58,13 @@ jobs:
       #     Rename-Item -Path "target\release\src-daemon.exe" -NewName "test-daemon-$TRIPLE.exe"
       #     dir target\release
 
-      - name: Get Rust Target Triple
-          run: |
-            for /F "tokens=2 delims=: " %A in ('rustc -vV ^| findstr /C:"host"') do @echo TARGET_TRIPLE=%A >> $env:GITHUB_ENV
+      - name: Target
+        run: |
+          for /F "tokens=2 delims=: " %A in ('rustc -vV ^| findstr /C:"host"') do @echo TARGET_TRIPLE=%A >> $env:GITHUB_ENV
 
-      - name: Print Rust Target Triple
-          run: |
-            echo The Rust target triple is: $env:TARGET_TRIPLE
+      - name: Test
+        run: |
+          echo The Rust target triple is: $env:TARGET_TRIPLE
 
       # - name: install frontend dependencies
       #   run: npm install # change this to npm, pnpm or bun depending on which one you use.
